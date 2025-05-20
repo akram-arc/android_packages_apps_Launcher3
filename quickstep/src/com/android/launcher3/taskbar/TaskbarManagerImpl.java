@@ -180,6 +180,9 @@ public class TaskbarManagerImpl implements DisplayDecorationListener {
     public static final Uri FORCE_SHOW_NAVBAR_URI = LineageSettings.System.getUriFor(
             LineageSettings.System.FORCE_SHOW_NAVBAR);
 
+    public static final Uri NAVBAR_IME_SPACE_URI = Settings.Secure.getUriFor(
+            Settings.Secure.NAVBAR_IME_SPACE);
+
     public static final LooperExecutor TASKBAR_UI_THREAD =
             new LooperExecutor("TASKBAR_UI_THREAD", THREAD_PRIORITY_FOREGROUND);
 
@@ -486,6 +489,8 @@ public class TaskbarManagerImpl implements DisplayDecorationListener {
                 .register(NAVIGATION_BAR_HINT_URI, mOnTaskBarChangeListener);
         SettingsCache.INSTANCE.get(mPrimaryWindowContext)
                 .register(FORCE_SHOW_NAVBAR_URI, mOnTaskBarChangeListener);
+        SettingsCache.INSTANCE.get(mPrimaryWindowContext)
+                .register(NAVBAR_IME_SPACE_URI, mOnTaskBarChangeListener);
         if (DesktopExperienceFlags.ENABLE_SYS_DECORS_CALLBACKS_VIA_WM.isTrue()
                 && DesktopExperienceFlags.ENABLE_DISPLAY_CONTENT_MODE_MANAGEMENT.isTrue()) {
             displaysWithDecorationsRepositoryCompat
@@ -1223,6 +1228,8 @@ public class TaskbarManagerImpl implements DisplayDecorationListener {
                 .unregister(NAVIGATION_BAR_HINT_URI, mOnTaskBarChangeListener);
         SettingsCache.INSTANCE.get(mPrimaryWindowContext)
                 .unregister(FORCE_SHOW_NAVBAR_URI, mOnTaskBarChangeListener);
+        SettingsCache.INSTANCE.get(mPrimaryWindowContext)
+                .unregister(NAVBAR_IME_SPACE_URI, mOnTaskBarChangeListener);
         if (DesktopExperienceFlags.ENABLE_SYS_DECORS_CALLBACKS_VIA_WM.isTrue()
                 && DesktopExperienceFlags.ENABLE_DISPLAY_CONTENT_MODE_MANAGEMENT.isTrue()) {
             mDisplaysWithDecorationsRepositoryCompat.unregisterDisplayDecorationListener(this);
